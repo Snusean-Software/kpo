@@ -1,3 +1,5 @@
-# ignore build dirs
-bin/*
+# build dirs
 build/*
+
+# ide/editors files
+.vscode
