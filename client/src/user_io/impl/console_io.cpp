@@ -12,9 +12,9 @@ std::string console_io::get()
      return result;
 }
 
-void console_io::put( std::string message )
+void console_io::put( const std::string& message )
 {
-     std::cout << message;
+     std::cout << message << std::endl;
 }
 
 } // namespace io

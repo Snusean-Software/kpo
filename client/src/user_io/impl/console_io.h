@@ -17,7 +17,7 @@ public:
      std::string get() final;
 
      /// @copydoc
-     void put( std::string message ) final;
+     void put( const std::string& message ) final;
 };
 
 } // namespace io

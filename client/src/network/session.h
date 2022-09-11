@@ -9,8 +9,6 @@ namespace net
 class session
 {
 public:
-     session() = default;
-
      /// @brief start session, after this it is able to read and write
      virtual void run() = 0;
 
@@ -20,7 +18,7 @@ public:
 
      /// @brief write data to session
      /// @param message data to be written
-     virtual void write( std::string message ) = 0;
+     virtual void write( const std::string& message ) = 0;
 
      /// @brief stop session
      virtual void stop() = 0;

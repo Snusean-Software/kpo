@@ -15,7 +15,7 @@ public:
 
      /// @brief put data
      /// @param message data to be putted
-     virtual void put( std::string message ) = 0;
+     virtual void put( const std::string& message ) = 0;
 
      virtual ~io_iface() = default;
 };

@@ -24,7 +24,7 @@ public:
      std::string read() final;
 
      /// @copydoc
-     void write( std::string message ) final;
+     void write( const std::string& message ) final;
 
      /// @copydoc
      void stop() final;

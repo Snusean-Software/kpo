@@ -3,7 +3,7 @@
 #include <cassert>
 #include <thread>
 #include <chrono>
-#include <iostream>
+#include <stdexcept>
 
 namespace net
 {
@@ -27,7 +27,8 @@ unix_sock_session::~unix_sock_session()
      {
           stop();
      }
-     close( client_sock_ );
+     delete[] read_buffer_;
+     read_buffer_ = nullptr;
 }
 
 void unix_sock_session::run()
@@ -49,6 +50,11 @@ std::string unix_sock_session::read()
      }
 
      int ec = recv( client_sock_, read_buffer_, buffer_size_, 0 );
+     if ( ec == EINTR )
+     {
+          // recv was interrupted, its fine
+          return "";
+     }
      if ( ec != 0 )
      {
           throw std::runtime_error( "Session: read error" );
@@ -57,14 +63,29 @@ std::string unix_sock_session::read()
      return std::string { read_buffer_ };
 }
 
-void unix_sock_session::write( std::string message )
+void unix_sock_session::write( const std::string& message )
 {
-     std::cerr << "Not implemented" << std::endl;
+     if ( !running_ )
+     {
+          throw std::runtime_error( "Session: try to write while session is not running" );
+     }
+
+     int ec = send( client_sock_, message.c_str(), message.length() + 1, MSG_NOSIGNAL );
+     if ( ec == EINTR )
+     {
+          return;
+     }
+     if ( ec != 0 )
+     {
+          throw std::runtime_error( "Session: write error" );
+     }
 }
 
 void unix_sock_session::stop()
 {
      shutdown( client_sock_, SHUT_RDWR );
+     close( client_sock_ );
+     running_ = false;
 }
 
 } // namespace net
