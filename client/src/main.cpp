@@ -10,11 +10,11 @@ int main()
      {
           auto user_io = std::shared_ptr<io::io_iface>( new io::console_io() );
 
-          client c( client_id( "test-id" ),
-                    std::unique_ptr<net::session>( new net::unix_sock_session() ),
-                    user_io );
+          client c(
+               client_id( "test-id" ), std::unique_ptr<net::session>( new net::unix_sock_session( "server" ) ), user_io
+          );
 
-          c.send_message("Test\n");
+          c.send_message( "Test\n" );
 
           return 0;
      }

@@ -10,7 +10,7 @@ class io_iface
 {
 public:
      /// @brief get data
-     /// @return received data 
+     /// @return received data
      virtual std::string get() = 0;
 
      /// @brief put data
@@ -20,6 +20,6 @@ public:
      virtual ~io_iface() = default;
 };
 
-} // namespcae io
+} // namespace io
 
 #endif // IO_IFACE_H

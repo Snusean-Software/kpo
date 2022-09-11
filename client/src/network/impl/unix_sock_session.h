@@ -3,7 +3,9 @@
 
 #include "session.h"
 
-#include <iostream>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
 
 namespace net
 {
@@ -11,7 +13,9 @@ namespace net
 class unix_sock_session : public session
 {
 public:
-     unix_sock_session() = default;
+     unix_sock_session( const std::string& server_addr );
+
+     ~unix_sock_session();
 
      /// @copydoc
      void run() final;
@@ -25,8 +29,14 @@ public:
      /// @copydoc
      void stop() final;
 
+private:
+     int client_sock_;
+     sockaddr_un server_addr_;
+     bool running_;
+     char* read_buffer_;
+     const size_t buffer_size_;
 };
 
-} // namespace network
+} // namespace net
 
 #endif // UNIX_SOCK_SESSION_H

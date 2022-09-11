@@ -25,9 +25,9 @@ public:
 
      ~client();
 
-     /// @brief send message through network context 
+     /// @brief send message through network context
      /// @param message message to be sended
-     void send_message( const std::string& message ); 
+     void send_message( const std::string& message );
 
 private:
      /// @brief Adds client id to message
@@ -42,7 +42,6 @@ private:
 
      std::thread reader_;
      std::thread writer_;
-
 };
 
 #endif // CLIENT_H

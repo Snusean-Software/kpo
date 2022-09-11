@@ -14,7 +14,7 @@ std::string console_io::get()
 
 void console_io::put( std::string message )
 {
-    std::cout << message;
+     std::cout << message;
 }
 
 } // namespace io

@@ -13,12 +13,11 @@ class console_io : public io_iface
 public:
      console_io() = default;
 
-     /// @copydoc 
+     /// @copydoc
      std::string get() final;
 
      /// @copydoc
      void put( std::string message ) final;
-
 };
 
 } // namespace io
